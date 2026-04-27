@@ -6,15 +6,21 @@
 #     ARM Linux stay first-class.
 #   - mediapipe 0.10.14 wheels were compiled against numpy 1.x ABI, so we cap
 #     numpy below 2 to avoid runtime ABI surprises.
-#   - auto-editor 27+ requires numpy>=2, which conflicts with the cap above.
-#     25.3.1 is the last release in the 25.x line that accepts numpy 1.x and
-#     supports the `--margin <Nsec>` CLI we use in edit.js. If the call ever
-#     fails (CLI drift, missing binary, etc.), edit.js falls back gracefully
-#     to the un-trimmed cut, so the pipeline still completes.
+#
+# auto-editor (silence trim) is intentionally NOT pinned here. As of April 2026,
+# the 22.x-26.x line declares a `pyav` dependency that does not exist on PyPI
+# (only the real `av` package does), making those releases un-installable. The
+# 27.x line switched to `basswood-av` but requires numpy>=2, which conflicts
+# with the mediapipe cap above. The pipeline accepts this: edit.js wraps the
+# auto-editor call in a try/catch and falls back to the un-trimmed cut, so a
+# missing binary is non-fatal — clips still ship, just without silence trim.
+# Users who want silence trim can install a working auto-editor themselves
+# (e.g. `pip install --no-deps auto-editor==25.3.1` after this base install).
 faster-whisper==1.1.1
 ctranslate2==4.7.0
 mediapipe==0.10.14
 opencv-python-headless==4.10.0.84
 pysubs2==1.7.3
-auto-editor==25.3.1
+av==13.0.0
+ae-ffmpeg==1.2.0
 numpy==1.26.4

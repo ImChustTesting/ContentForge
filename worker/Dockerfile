@@ -19,6 +19,15 @@ COPY worker/requirements.txt /tmp/requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip && pip install --no-cache-dir -r /tmp/requirements.txt
 
+# Best-effort auto-editor install for silence trimming. Its PyPI metadata in
+# 25.x declares `pyav` (which doesn't exist on PyPI) instead of the real `av`
+# package; we already installed av+ae-ffmpeg in requirements.txt, so --no-deps
+# bypasses the broken declaration. If this still fails for any reason, edit.js
+# falls back to the un-trimmed cut and the pipeline keeps working.
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --no-cache-dir --no-deps auto-editor==25.3.1 || \
+    echo "auto-editor install skipped — silence trim will be unavailable"
+
 WORKDIR /worker
 COPY worker/package.json worker/package-lock.json* ./
 RUN --mount=type=cache,target=/root/.npm \
