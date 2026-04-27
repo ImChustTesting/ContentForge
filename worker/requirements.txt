@@ -1,8 +1,20 @@
 # ContentForge worker — Python deps. Pinned and verified against PyPI (April 2026).
+#
+# Compatibility constraints worth knowing about before bumping any of these:
+#   - mediapipe 0.10.14 is the only release with both linux/aarch64 AND cp312
+#     wheels. Newer 0.10.x dropped aarch64; we hold here so Apple Silicon and
+#     ARM Linux stay first-class.
+#   - mediapipe 0.10.14 wheels were compiled against numpy 1.x ABI, so we cap
+#     numpy below 2 to avoid runtime ABI surprises.
+#   - auto-editor 27+ requires numpy>=2, which conflicts with the cap above.
+#     25.3.1 is the last release in the 25.x line that accepts numpy 1.x and
+#     supports the `--margin <Nsec>` CLI we use in edit.js. If the call ever
+#     fails (CLI drift, missing binary, etc.), edit.js falls back gracefully
+#     to the un-trimmed cut, so the pipeline still completes.
 faster-whisper==1.1.1
 ctranslate2==4.7.0
 mediapipe==0.10.14
 opencv-python-headless==4.10.0.84
 pysubs2==1.7.3
-auto-editor==27.1.1
+auto-editor==25.3.1
 numpy==1.26.4
