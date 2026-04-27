@@ -1,0 +1,13 @@
+<section>
+  <header class="row">
+    <h1>{{job.title}}</h1>
+    <a href="/jobs">← All jobs</a>
+  </header>
+
+  <div id="job-status"
+       hx-get="/api/jobs/{{job.id}}/status"
+       hx-trigger="load, every 3s"
+       hx-swap="outerHTML">
+    <p class="muted">Loading status…</p>
+  </div>
+</section>

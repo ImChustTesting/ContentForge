@@ -1,0 +1,31 @@
+<section class="card narrow">
+  <h1>New job</h1>
+  <p class="muted">Tell us what you're uploading. Up to {{maxMinutes}} minutes / 2 GB.</p>
+
+  <form hx-post="/api/jobs" hx-swap="none">
+    <label>
+      Title
+      <input type="text" name="title" required maxlength="200"
+             placeholder="e.g. Tuesday morning standup" />
+    </label>
+    <label>
+      Speaker count
+      <select name="speakerCount">
+        <option value="1" selected>1 speaker (talking head)</option>
+        <option value="2">2 speakers</option>
+      </select>
+    </label>
+    <label>
+      Camera count
+      <select name="cameraCount">
+        <option value="1" selected>1 camera</option>
+        <option value="2">2 cameras</option>
+      </select>
+    </label>
+    <p class="hint">
+      <strong>Why we ask:</strong> 1 speaker or 2-speakers/2-cameras → face-tracking crop.
+      2-speakers/1-camera → blurred-background center crop.
+    </p>
+    <button type="submit" class="primary">Continue to upload →</button>
+  </form>
+</section>

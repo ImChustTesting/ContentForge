@@ -1,0 +1,8 @@
+# ContentForge worker — Python deps. Pinned for an April 2026 build.
+faster-whisper==1.1.3
+ctranslate2==4.7.0
+mediapipe==0.10.14
+opencv-python-headless==4.10.0.84
+pysubs2==1.7.3
+auto-editor==27.0.1
+numpy==1.26.4

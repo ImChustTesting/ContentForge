@@ -1,0 +1,196 @@
+# =============================================================================
+# Secrets — never commit
+# =============================================================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets/
+.secrets/
+
+# =============================================================================
+# Runtime data — never commit
+# =============================================================================
+data/
+uploads/
+clips/
+captions/
+edited/
+thumbs/
+work/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.aac
+*.srt
+*.ass
+*.vtt
+# Allow a packaged demo if we ever ship one under docs/
+!docs/**/*.mp4
+!docs/**/*.gif
+# Allow the smoke-test fixture instructions file (no media committed)
+!worker/test/fixtures/README.md
+
+# =============================================================================
+# Node.js
+# =============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-store/
+.npm/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarn/version
+.eslintcache
+.parcel-cache/
+.next/
+.nuxt/
+.cache/
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+MANIFEST
+.installed.cfg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Test / type-check caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+
+# =============================================================================
+# Test output / coverage
+# =============================================================================
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+*.lcov
+
+# =============================================================================
+# Builds / generated artifacts
+# =============================================================================
+dist/
+build/
+out/
+*.tsbuildinfo
+*.swp
+*.swo
+
+# Vendored at Docker build time, not in git
+app/src/public/htmx.min.js
+worker/models/*.tflite
+!worker/models/.gitkeep
+
+# =============================================================================
+# Docker
+# =============================================================================
+docker-compose.override.yml
+docker-compose.override.yaml
+.docker/
+
+# =============================================================================
+# Editor / IDE
+# =============================================================================
+.idea/
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.example.json
+*.iml
+.project
+.classpath
+.settings/
+.history/
+*.code-workspace
+
+# JetBrains shelves
+.idea_modules/
+
+# =============================================================================
+# OS-generated
+# =============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+$RECYCLE.BIN/
+desktop.ini
+
+# =============================================================================
+# Logs / pidfiles
+# =============================================================================
+*.log
+logs/
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# =============================================================================
+# Local dev / scratch
+# =============================================================================
+TODO.local.md
+NOTES.local.md
+scratch/
+tmp/
+.tmp/
+*.bak
+*.orig
+*.rej
+
+# =============================================================================
+# CI / Coverage uploads
+# =============================================================================
+.codecov.yml.local

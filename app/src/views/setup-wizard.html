@@ -1,0 +1,56 @@
+<section class="wizard">
+  <h1>Set up ContentForge</h1>
+  <p class="muted">First-run wizard. Three minutes from here to your first upload.</p>
+
+  {{#if error}}
+    <div class="banner error">{{error}}</div>
+  {{/if}}
+
+  <form method="post" action="/setup" autocomplete="off">
+    <fieldset>
+      <legend>1. Admin account</legend>
+      <label>
+        Email <span class="muted">(optional)</span>
+        <input type="email" name="email" placeholder="you@example.com" />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" minlength="8" required autofocus />
+      </label>
+      <label>
+        Confirm password
+        <input type="password" name="passwordConfirm" minlength="8" required />
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Anthropic API key</legend>
+      <p class="muted">
+        Get a key at
+        <a href="https://console.anthropic.com" target="_blank" rel="noreferrer">console.anthropic.com</a>.
+        It is encrypted at rest with AES-256-GCM and only ever sent to api.anthropic.com.
+      </p>
+      <label>
+        API key
+        <input type="password" name="anthropicKey" placeholder="sk-ant-..." required />
+      </label>
+
+      <button type="button" class="secondary"
+              hx-post="/api/test-key"
+              hx-include="closest form"
+              hx-target="#test-result"
+              hx-swap="innerHTML">
+        Test connection
+      </button>
+      <div id="test-result" class="test-result"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Done</legend>
+      <p class="muted">After a successful test you'll see a "Save and continue" button above.</p>
+      <noscript>
+        <button type="submit" name="action" value="save">Save without test (not recommended)</button>
+      </noscript>
+    </fieldset>
+  </form>
+</section>

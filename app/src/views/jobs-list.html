@@ -1,0 +1,36 @@
+<section>
+  <header class="row">
+    <h1>Jobs</h1>
+    <a class="primary button" href="/jobs/new">+ Upload new video</a>
+  </header>
+
+  {{#if jobs.length}}
+    <table class="jobs">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Clips</th>
+          <th>Updated</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each jobs}}
+          <tr>
+            <td>{{this.title}}</td>
+            <td><span class="status status-{{this.status}}">{{this.status}}</span></td>
+            <td>{{this.ready_count}}/{{this.approved_count}}</td>
+            <td><time>{{this.updated_at}}</time></td>
+            <td><a href="/jobs/{{this.id}}">Open →</a></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <div class="empty">
+      <p>No jobs yet.</p>
+      <a class="primary button" href="/jobs/new">Upload your first video</a>
+    </div>
+  {{/if}}
+</section>

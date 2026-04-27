@@ -1,0 +1,26 @@
+<section class="card">
+  <h1>{{job.title}}</h1>
+  <p class="muted">Drop your source video below. Up to {{maxMinutes}} minutes / 2 GB.</p>
+
+  <form id="upload-form"
+        hx-encoding="multipart/form-data"
+        hx-post="/api/jobs/{{job.id}}/upload"
+        hx-swap="none">
+    <label class="dropzone">
+      <input type="file" name="file" accept="video/mp4,video/quicktime,video/x-matroska,video/webm" required />
+      <span>Click or drag a file here</span>
+    </label>
+    <progress id="up-progress" max="100" value="0" hidden></progress>
+    <button type="submit" class="primary">Start processing</button>
+  </form>
+</section>
+
+<script>
+  // Native fetch upload progress isn't standard; HTMX surfaces it via xhr.
+  document.body.addEventListener('htmx:xhr:progress', (e) => {
+    const p = document.getElementById('up-progress');
+    if (!p) return;
+    p.hidden = false;
+    p.value = (e.detail.loaded / e.detail.total) * 100;
+  });
+</script>

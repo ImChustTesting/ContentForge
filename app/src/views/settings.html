@@ -1,0 +1,60 @@
+<section>
+  <h1>Settings</h1>
+
+  {{#if success}}<div class="banner ok">Saved.</div>{{/if}}
+  {{#if error}}<div class="banner error">{{error}}</div>{{/if}}
+
+  <h2>Brand</h2>
+  <form method="post" action="/api/settings/brand" class="settings-form">
+    <label>
+      Caption font name
+      <input type="text" name="font_name" value="{{brand.font_name}}" />
+      <span class="hint">Must be a font available in the worker container. Defaults to DejaVu Sans (preinstalled). Add fonts via the Dockerfile.</span>
+    </label>
+    <label>
+      Caption font size
+      <input type="number" name="font_size" value="{{brand.font_size}}" min="12" max="200" />
+    </label>
+    <label>
+      Caption color
+      <input type="color" name="font_color" value="{{brand.font_color}}" />
+    </label>
+    <label>
+      Caption outline color
+      <input type="color" name="outline_color" value="{{brand.outline_color}}" />
+    </label>
+    <label>
+      Outline width (px)
+      <input type="number" name="outline_width" value="{{brand.outline_width}}" min="0" max="20" />
+    </label>
+    <label>
+      Caption baseline (% from top)
+      <input type="number" name="vertical_pct" value="{{brand.vertical_pct}}" min="0" max="100" />
+    </label>
+    <label>
+      Brand voice (sent to Claude)
+      <textarea name="brand_voice" rows="4" placeholder="e.g. Conversational, contrarian, no hashtags in captions">{{brand.brand_voice}}</textarea>
+    </label>
+    <button type="submit" class="primary">Save brand</button>
+  </form>
+
+  <h2>Anthropic API key</h2>
+  <p class="muted">Replace your stored Anthropic key. The new key is tested with a real Claude call before saving.</p>
+  <form method="post" action="/api/settings/key">
+    <label>
+      New API key
+      <input type="password" name="anthropicKey" placeholder="sk-ant-..." required />
+    </label>
+    <button type="submit" class="primary">Test &amp; save</button>
+  </form>
+
+  <h2>Data volume usage</h2>
+  <table class="usage">
+    <thead><tr><th>Kind</th><th>Files</th><th>Size (MB)</th></tr></thead>
+    <tbody>
+      {{#each usage}}
+        <tr><td>{{this.kind}}</td><td>{{this.count}}</td><td>{{this.total_mb}}</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>

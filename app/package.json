@@ -1,0 +1,30 @@
+{
+  "name": "contentforge-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ContentForge dashboard (Express + HTMX).",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "bcrypt": "^5.1.1",
+    "busboy": "^1.6.0",
+    "connect-pg-simple": "^9.0.1",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "handlebars": "^4.7.8",
+    "pg": "^8.13.0",
+    "pg-boss": "^10.1.5",
+    "pino": "^9.5.0",
+    "pino-http": "^10.3.0",
+    "zod": "^3.23.8"
+  }
+}

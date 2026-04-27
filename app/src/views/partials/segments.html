@@ -1,0 +1,44 @@
+<form hx-post="/api/jobs/{{jobId}}/approve"
+      hx-swap="none"
+      class="approve-form">
+  <ul class="proposed-clips">
+    {{#each clips}}
+      <li class="clip-band">
+        <label>
+          <input type="checkbox" name="clipIds" value="{{this.id}}" />
+          <div class="clip-meta">
+            <span class="ts">{{ts this.start_ms}} – {{ts this.end_ms}}</span>
+            <strong class="title">{{this.draft_title}}</strong>
+          </div>
+          <p class="reason">{{this.reason}}</p>
+          {{#if this.draft_caption}}
+            <p class="draft-caption muted">"{{this.draft_caption}}"</p>
+          {{/if}}
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+  {{#if clips.length}}
+    <button type="submit" class="primary" id="approve-btn">
+      Approve <span data-bind="selected-count">0</span> selected
+    </button>
+  {{else}}
+    <p class="muted">Claude couldn't propose any clips. Try a longer or different source.</p>
+  {{/if}}
+</form>
+
+<script>
+  (() => {
+    const form = document.querySelector('.approve-form');
+    if (!form) return;
+    const counter = form.querySelector('[data-bind="selected-count"]');
+    const btn = form.querySelector('#approve-btn');
+    const sync = () => {
+      const n = form.querySelectorAll('input[name="clipIds"]:checked').length;
+      if (counter) counter.textContent = n;
+      if (btn) btn.disabled = n === 0;
+    };
+    form.addEventListener('change', sync);
+    sync();
+  })();
+</script>

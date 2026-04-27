@@ -1,0 +1,38 @@
+# Top-level
+.git
+.github
+.env
+.env.*
+!.env.example
+.vscode
+.idea
+*.md
+!README.md
+docker-compose.override.yml
+
+# Per-service ignores
+app/node_modules
+app/test
+app/coverage
+app/.nyc_output
+worker/node_modules
+worker/test
+worker/coverage
+worker/.nyc_output
+
+# Python / OS
+__pycache__
+*.pyc
+*.pyo
+.venv
+venv
+.DS_Store
+Thumbs.db
+
+# Data — never copy into images
+data
+uploads
+clips
+captions
+edited
+thumbs

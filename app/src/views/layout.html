@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ContentForge</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/htmx.min.js" defer></script>
+</head>
+<body>
+  <header class="topnav">
+    <a href="/" class="brand">ContentForge</a>
+    <nav>
+      <a href="/jobs">Jobs</a>
+      <a href="/jobs/new">Upload</a>
+      <a href="/settings">Settings</a>
+      <form method="post" action="/logout" style="display:inline">
+        <button class="link" type="submit">Logout</button>
+      </form>
+    </nav>
+  </header>
+  <main id="main">
+    {{{body}}}
+  </main>
+  <footer class="footer">
+    <small>
+      ContentForge — self-hosted, MIT. The only outbound call is to api.anthropic.com.
+    </small>
+  </footer>
+</body>
+</html>

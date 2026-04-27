@@ -1,0 +1,109 @@
+{{#if (eq job.status 'transcribing')}}
+  <div id="job-status" hx-get="/api/jobs/{{job.id}}/status" hx-trigger="every 3s" hx-swap="outerHTML">
+    <div class="card">
+      <h2>Transcribing…</h2>
+      <p class="muted">Running faster-whisper on CPU. A 10-minute source takes about 3 minutes.</p>
+      <progress></progress>
+    </div>
+  </div>
+{{else if (eq job.status 'segmenting')}}
+  <div id="job-status" hx-get="/api/jobs/{{job.id}}/status" hx-trigger="every 3s" hx-swap="outerHTML">
+    <div class="card">
+      <h2>Picking clips…</h2>
+      <p class="muted">Pre-filtering candidates and asking Claude Haiku to rank them. Roughly 10 seconds.</p>
+      <progress></progress>
+    </div>
+  </div>
+{{else if (eq job.status 'awaiting_approval')}}
+  <div id="job-status">
+    <div class="card">
+      <h2>Pick the keepers</h2>
+      <p class="muted">Tick the segments you want to publish. Rejected ones are deleted.</p>
+      <div hx-get="/api/jobs/{{job.id}}/segments"
+           hx-trigger="load"
+           hx-swap="innerHTML">
+        <progress></progress>
+      </div>
+    </div>
+  </div>
+{{else if (eq job.status 'editing')}}
+  <div id="job-status" hx-get="/api/jobs/{{job.id}}/status" hx-trigger="every 3s" hx-swap="outerHTML">
+    <div class="card">
+      <h2>Working…</h2>
+      <ul class="clip-progress">
+        {{#each clips}}
+          <li>Clip {{this.clip_index}}: <span class="status status-{{this.status}}">{{this.status}}</span></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+{{else if (eq job.status 'reframing')}}
+  <div id="job-status" hx-get="/api/jobs/{{job.id}}/status" hx-trigger="every 3s" hx-swap="outerHTML">
+    <div class="card">
+      <h2>Reframing + captions…</h2>
+      <ul class="clip-progress">
+        {{#each clips}}
+          <li>Clip {{this.clip_index}}: <span class="status status-{{this.status}}">{{this.status}}</span></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+{{else if (eq job.status 'finalizing')}}
+  <div id="job-status" hx-get="/api/jobs/{{job.id}}/status" hx-trigger="every 3s" hx-swap="outerHTML">
+    <div class="card">
+      <h2>Final captions + thumbnails…</h2>
+      <ul class="clip-progress">
+        {{#each clips}}
+          <li>Clip {{this.clip_index}}: <span class="status status-{{this.status}}">{{this.status}}</span></li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+{{else if (eq job.status 'ready')}}
+  <div id="job-status">
+    <div class="card">
+      <h2>Ready ✓</h2>
+    </div>
+    <ul class="ready-clips">
+      {{#each clips}}
+        <li class="clip-card">
+          {{#if this.thumb_path}}
+            <img class="thumb" src="/api/clips/{{this.id}}/thumb" alt="" loading="lazy" />
+          {{/if}}
+          <div class="clip-body">
+            <h3>{{this.draft_title}}</h3>
+            <video controls preload="metadata" src="/api/clips/{{this.id}}/preview" width="270"></video>
+            <details>
+              <summary>Captions</summary>
+              <h4>Instagram</h4>
+              <pre class="cap">{{this.final_caption_ig}}</pre>
+              <button type="button" class="secondary"
+                      onclick="navigator.clipboard.writeText({{json this.final_caption_ig}})">Copy IG caption</button>
+              <h4>LinkedIn</h4>
+              <pre class="cap">{{this.final_caption_li}}</pre>
+              <button type="button" class="secondary"
+                      onclick="navigator.clipboard.writeText({{json this.final_caption_li}})">Copy LI caption</button>
+              <h4>Hashtags</h4>
+              <pre class="cap">{{#each this.hashtags}}{{this}} {{/each}}</pre>
+            </details>
+            <a class="primary button" href="/api/clips/{{this.id}}/download">Download MP4</a>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+{{else if (eq job.status 'failed')}}
+  <div id="job-status">
+    <div class="card error">
+      <h2>Failed</h2>
+      <p>{{job.last_error}}</p>
+      <p class="muted">Check container logs for the full stack trace.</p>
+    </div>
+  </div>
+{{else}}
+  <div id="job-status" hx-get="/api/jobs/{{job.id}}/status" hx-trigger="every 3s" hx-swap="outerHTML">
+    <div class="card">
+      <h2>{{job.status}}</h2>
+    </div>
+  </div>
+{{/if}}

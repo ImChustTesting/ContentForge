@@ -1,0 +1,262 @@
+:root {
+  --bg: #0f1115;
+  --panel: #1a1d24;
+  --panel-2: #232831;
+  --text: #e6e8ec;
+  --muted: #8a93a3;
+  --accent: #7c5cff;
+  --accent-2: #5b3df0;
+  --ok: #3ddc84;
+  --warn: #ffb547;
+  --err: #ff5d6c;
+  --border: #2a2f3a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+.topnav .brand { font-weight: 700; color: var(--text); }
+.topnav nav { display: flex; gap: 1rem; align-items: center; }
+.topnav nav a { color: var(--muted); }
+.topnav nav a:hover { color: var(--text); text-decoration: none; }
+
+.footer {
+  margin-top: 4rem;
+  padding: 1rem 1.5rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+main {
+  max-width: 880px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.2rem; margin-top: 2rem; }
+
+.muted { color: var(--muted); }
+.hint { color: var(--muted); font-size: 0.9rem; }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card, .wizard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.card.error { border-color: var(--err); }
+.narrow { max-width: 480px; }
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+legend { padding: 0 0.5rem; color: var(--muted); }
+
+label {
+  display: block;
+  margin: 0.6rem 0;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  font: inherit;
+}
+input[type="color"] { padding: 0.1rem; height: 2.4rem; }
+input[type="checkbox"], input[type="radio"] { width: auto; }
+
+button, .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.55rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+}
+button:hover, .button:hover { border-color: var(--accent); }
+button.primary, .button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+button.primary:hover, .button.primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+button.secondary { background: transparent; }
+button.link {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+}
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.banner {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+.banner.ok    { background: rgba(61, 220, 132, 0.12); color: var(--ok); }
+.banner.error { background: rgba(255, 93, 108, 0.12); color: var(--err); }
+
+.test-result {
+  margin-top: 0.5rem;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9rem;
+}
+.test-result .ok    { color: var(--ok); }
+.test-result .error { color: var(--err); }
+
+table.jobs, table.usage {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.jobs th, table.jobs td, table.usage th, table.usage td {
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 0.4rem;
+  text-align: left;
+}
+table.jobs th, table.usage th { color: var(--muted); font-weight: 500; }
+
+.empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+}
+
+.status {
+  font-size: 0.85rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--muted);
+  text-transform: lowercase;
+}
+.status-ready          { color: var(--ok);   background: rgba(61, 220, 132, 0.12); }
+.status-failed         { color: var(--err);  background: rgba(255, 93, 108, 0.12); }
+.status-awaiting_approval { color: var(--warn); background: rgba(255, 181, 71, 0.12); }
+
+.dropzone {
+  display: block;
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+  cursor: pointer;
+}
+.dropzone input { display: none; }
+
+progress {
+  width: 100%;
+  height: 8px;
+}
+
+.proposed-clips { list-style: none; padding: 0; margin: 0; }
+.clip-band {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background: var(--panel-2);
+}
+.clip-band label {
+  display: block;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  margin: 0;
+}
+.clip-band .clip-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+.clip-band .ts {
+  font-family: ui-monospace, Consolas, monospace;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.clip-band .reason { margin: 0.4rem 0 0; color: var(--text); }
+.clip-band .draft-caption { margin: 0.3rem 0 0; font-size: 0.9rem; }
+.clip-band input[type="checkbox"]:checked ~ * { font-weight: 500; }
+.clip-band:hover { border-color: var(--accent); }
+
+.clip-progress { list-style: none; padding: 0; }
+.clip-progress li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.ready-clips {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+.clip-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+.clip-card .thumb {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background: var(--bg);
+}
+.clip-card video { width: 100%; max-width: 270px; border-radius: 6px; }
+.clip-card .cap {
+  background: var(--panel-2);
+  padding: 0.5rem;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+}

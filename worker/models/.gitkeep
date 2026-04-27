@@ -1,0 +1,2 @@
+# MediaPipe model files are downloaded at Docker build time; see Dockerfile.
+# This directory is kept under version control as a placeholder only.
